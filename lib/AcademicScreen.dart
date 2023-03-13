@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-
 import 'buttons.dart';
 
 class AcademicScreen extends StatefulWidget {
@@ -12,30 +10,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: GNav(
-          padding: EdgeInsets.all(20),
-          backgroundColor: Color(0xff48484A),
-          color: Colors.white,
-          activeColor: Colors.white,
-          gap: 8,
-          tabs: [
-            GButton(
-              icon: Icons.explore,
-              text: "Home",
-            ),
-            GButton(
-              icon: Icons.notifications,
-              text: "Notifications",
-            ),
-            GButton(
-              icon: Icons.person,
-              text: "Profile",
-            ),
-            GButton(
-              icon: Icons.settings,
-              text: "Settings",
-            )
-          ]),
+      // bottomNavigationBar: NavigationBarBottom(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),

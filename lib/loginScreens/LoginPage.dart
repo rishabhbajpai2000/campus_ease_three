@@ -1,4 +1,4 @@
-import 'package:campus_ease/HomeScreen.dart';
+import 'package:campus_ease/Home.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => HomeScreen()));
+                      builder: (context) => Home()));
                 },
                 child: Container(
                   height: 50,

@@ -1,3 +1,4 @@
+
 import 'package:campus_ease/PersonalServices/BrokerConnect.dart';
 import 'package:campus_ease/PersonalServices/CabShare.dart';
 import 'package:campus_ease/PersonalServices/FoodFinder.dart';
@@ -16,6 +17,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // bottomNavigationBar: NavigationBarBottom(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),

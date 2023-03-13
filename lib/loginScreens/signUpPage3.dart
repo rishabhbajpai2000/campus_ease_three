@@ -27,7 +27,7 @@ class _SignUpPage3State extends State<SignUpPage3> {
                           child: LinearProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                             backgroundColor: Color(0xffC4C4C4),
-                            value: 0.6,
+                            value: 0.8,
                           )),
                     )),
               ),

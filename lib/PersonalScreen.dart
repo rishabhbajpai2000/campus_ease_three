@@ -1,11 +1,10 @@
-
-import 'package:campus_ease/PersonalServices/BrokerConnect.dart';
-import 'package:campus_ease/PersonalServices/CabShare.dart';
-import 'package:campus_ease/PersonalServices/FoodFinder.dart';
-import 'package:campus_ease/PersonalServices/RentRight.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
-import 'buttons.dart';
+import 'HomeScreenPages/NotificationsScreen.dart';
+import 'HomeScreenPages/ProfileScreen.dart';
+import 'HomeScreenPages/SettingsScreen.dart';
+import 'PersonalServices/PersonalScreenBody.dart';
 class PersonalScreen extends StatefulWidget {
   const PersonalScreen({Key? key}) : super(key: key);
 
@@ -14,60 +13,54 @@ class PersonalScreen extends StatefulWidget {
 }
 
 class _PersonalScreenState extends State<PersonalScreen> {
+  int kSelectedIndexBottomNavigationBar = 0;
+
+  List<Widget> bottomScreens = <Widget>[
+    PersonalScreenBody(),
+    NotificationScreen(),
+    ProfileScreen(),
+    SettingsScreen()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: NavigationBarBottom(),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // we are there to help you
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Text(
-                  "Hi there! ",
-                  style: TextStyle(fontSize: 24),
-                  textAlign: TextAlign.left,
-                ),
-              ),
+      bottomNavigationBar:GNav(
+        padding: EdgeInsets.all(20),
+        backgroundColor: Color(0xff48484A),
+        color: Colors.white,
+        activeColor: Colors.white,
+        gap: 8,
+        tabs: [
+          GButton(
+            icon: Icons.explore,
+            text: "Home",
 
-              // text below the help you
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Text(
-                  "Here some of the ways you can find help to grow in your studies",
-                  style: TextStyle(fontSize: 14),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-
-              // button 1 personal
-              selectionButton(heading1: "Food Finder", heading2: "Find the best food near by!", shade: Color(0xffF7D972), context: context,
-                  onClickAction: () => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => FoodFinder()))
-                  }),
-              selectionButton(heading1: "Rent Right", heading2: "Find affordable PG’s , Flats and hostels nearby", shade: Color(0xffF7D972),context: context,
-                  onClickAction: () => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => RentRight()))
-                  } ),
-              selectionButton(heading1: "Broker Connect", heading2: "Direct and hassle free contact to Brokers ", shade: Color(0xffF7D972), context: context,
-                  onClickAction: () => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => BrokerConnect()))
-                  }),
-              selectionButton(heading1: "Cab Share", heading2: "Share cabs and split the bills.", shade: Color(0xffF7D972), context: context,
-                  onClickAction: () => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CabShare()))
-                  }),
-            ],
           ),
-        ),
+          GButton(
+            icon: Icons.notifications,
+            text: "Notifications",
+          ),
+          GButton(
+            icon: Icons.person,
+            text: "Profile",
+          ),
+          GButton(
+            icon: Icons.settings,
+            text: "Settings",
+          )
+        ],
+
+        onTabChange: (index) {
+          setState(() {
+            print("the botton index $index was pressed. \n \n \n \n \n ");
+            kSelectedIndexBottomNavigationBar = index;
+          });
+        },
+        selectedIndex: kSelectedIndexBottomNavigationBar,
+
+      ),
+      body: SafeArea(
+        child: bottomScreens.elementAt(kSelectedIndexBottomNavigationBar),
       ),
     );
   }

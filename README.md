@@ -1,16 +1,10 @@
-# campus_ease_three
+# Campus Ease
+Campus Ease is the must-have app for college students seeking a smooth, hassle-free campus experience.
+It offers essential features such as information on local tiffin and food services, nearby housing and
+rental rates, and contact information for brokers and maids.
+It also provides a platform for accessing teacher ratings and connecting with approachable seniors who can offer guidance.
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

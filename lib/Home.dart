@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
           ),
           GButton(
             icon: Icons.notifications,
-            text: "Notification",
+            text: "Notifications",
           ),
           GButton(
             icon: Icons.person,

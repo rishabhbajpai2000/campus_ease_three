@@ -5,8 +5,6 @@ import 'HomeScreenPages/NotificationsScreen.dart';
 import 'HomeScreenPages/ProfileScreen.dart';
 import 'HomeScreenPages/SettingsScreen.dart';
 
-
-
 class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
@@ -25,7 +23,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:GNav(
+      bottomNavigationBar: GNav(
         padding: EdgeInsets.all(20),
         backgroundColor: Color(0xff48484A),
         color: Colors.white,
@@ -35,7 +33,6 @@ class _HomeState extends State<Home> {
           GButton(
             icon: Icons.explore,
             text: "Home",
-
           ),
           GButton(
             icon: Icons.notifications,
@@ -50,7 +47,6 @@ class _HomeState extends State<Home> {
             text: "Settings",
           )
         ],
-
         onTabChange: (index) {
           setState(() {
             print("the botton index $index was pressed. \n \n \n \n \n ");
@@ -58,10 +54,8 @@ class _HomeState extends State<Home> {
           });
         },
         selectedIndex: kSelectedIndexBottomNavigationBar,
-
       ),
       body: bottomScreens.elementAt(kSelectedIndexBottomNavigationBar),
     );
   }
 }
-

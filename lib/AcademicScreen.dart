@@ -1,3 +1,4 @@
+import 'package:campus_ease/HomeScreenPages/HomeScreenBody.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'AcademicServices/AcademicScreenBody.dart';
@@ -11,13 +12,14 @@ class AcademicScreen extends StatefulWidget {
 }
 
 class _AcademicScreenState extends State<AcademicScreen> {
-  int kSelectedIndexBottomNavigationBar = 0;
+  int kSelectedIndexBottomNavigationBar = 4;
 
   List<Widget> bottomScreens = <Widget>[
-    AcademicScreenBody(),
+    HomeScreenBody(),
     NotificationScreen(),
     ProfileScreen(),
-    SettingsScreen()
+    SettingsScreen(),
+    AcademicScreenBody()
   ];
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
       ),
       // bottomNavigationBar: NavigationBarBottom(),
       body: SafeArea(
-        child: AcademicScreenBody(),
+        child: bottomScreens.elementAt(kSelectedIndexBottomNavigationBar),
       ),
     );
   }

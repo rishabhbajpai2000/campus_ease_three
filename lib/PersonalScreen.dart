@@ -1,3 +1,4 @@
+import 'package:campus_ease/HomeScreenPages/HomeScreenBody.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -13,13 +14,14 @@ class PersonalScreen extends StatefulWidget {
 }
 
 class _PersonalScreenState extends State<PersonalScreen> {
-  int kSelectedIndexBottomNavigationBar = 0;
+  int kSelectedIndexBottomNavigationBar = 4;
 
   List<Widget> bottomScreens = <Widget>[
-    PersonalScreenBody(),
+    HomeScreenBody(),
     NotificationScreen(),
     ProfileScreen(),
-    SettingsScreen()
+    SettingsScreen(),
+    PersonalScreenBody()
   ];
   @override
   Widget build(BuildContext context) {

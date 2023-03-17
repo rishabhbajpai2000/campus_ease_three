@@ -58,6 +58,7 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                     Container(
                       child: Center(
                         child: TextField(
+                          obscureText: true,
                           decoration: InputDecoration(
                               filled: true,
                               fillColor: Color(0xff92DCEC),
@@ -81,6 +82,7 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                     Container(
                       child: Center(
                         child: TextField(
+                          obscureText: true,
                           decoration: InputDecoration(
                               filled: true,
                               fillColor: Color(0xff92DCEC),

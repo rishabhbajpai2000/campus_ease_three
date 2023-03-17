@@ -1,32 +1,29 @@
-import 'package:campus_ease/HomeScreenPages/HomeScreenBody.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
+import 'HomeScreenPages/HomeScreenBody.dart';
 import 'HomeScreenPages/NotificationsScreen.dart';
 import 'HomeScreenPages/ProfileScreen.dart';
 import 'HomeScreenPages/SettingsScreen.dart';
-import 'PersonalServices/PersonalScreenBody.dart';
-class PersonalScreen extends StatefulWidget {
-  const PersonalScreen({Key? key}) : super(key: key);
 
+class Home extends StatefulWidget {
   @override
-  State<PersonalScreen> createState() => _PersonalScreenState();
+  State<Home> createState() => _HomeState();
 }
 
-class _PersonalScreenState extends State<PersonalScreen> {
-  int kSelectedIndexBottomNavigationBar = 4;
+class _HomeState extends State<Home> {
+  int kSelectedIndexBottomNavigationBar = 0;
 
   List<Widget> bottomScreens = <Widget>[
     HomeScreenBody(),
     NotificationScreen(),
     ProfileScreen(),
-    SettingsScreen(),
-    PersonalScreenBody()
+    SettingsScreen()
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:GNav(
+      bottomNavigationBar: GNav(
         padding: EdgeInsets.all(20),
         backgroundColor: Color(0xff48484A),
         color: Colors.white,
@@ -36,7 +33,6 @@ class _PersonalScreenState extends State<PersonalScreen> {
           GButton(
             icon: Icons.explore,
             text: "Home",
-
           ),
           GButton(
             icon: Icons.notifications,
@@ -51,7 +47,6 @@ class _PersonalScreenState extends State<PersonalScreen> {
             text: "Settings",
           )
         ],
-
         onTabChange: (index) {
           setState(() {
             print("the botton index $index was pressed. \n \n \n \n \n ");
@@ -59,12 +54,8 @@ class _PersonalScreenState extends State<PersonalScreen> {
           });
         },
         selectedIndex: kSelectedIndexBottomNavigationBar,
-
       ),
-      body: SafeArea(
-        child: bottomScreens.elementAt(kSelectedIndexBottomNavigationBar),
-      ),
+      body: bottomScreens.elementAt(kSelectedIndexBottomNavigationBar),
     );
   }
 }
-

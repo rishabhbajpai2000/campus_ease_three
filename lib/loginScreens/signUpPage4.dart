@@ -1,4 +1,4 @@
-import 'package:campus_ease/HomeScreen.dart';
+import 'package:campus_ease/Home.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage4 extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SignUpPage4State extends State<SignUpPage4> {
                           child: LinearProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                             backgroundColor: Color(0xffC4C4C4),
-                            value: 0.8,
+                            value: 1.0,
                           )),
                     )),
               ),
@@ -46,7 +46,7 @@ class _SignUpPage4State extends State<SignUpPage4> {
                   SizedBox(height: 10,),
                     GestureDetector(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
                       },
                       child: Container(
                         height: 50,
@@ -63,7 +63,7 @@ class _SignUpPage4State extends State<SignUpPage4> {
                     SizedBox(height: 10,),
                     GestureDetector(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
                       },
                       child: Container(
                         height: 50,
@@ -80,7 +80,7 @@ class _SignUpPage4State extends State<SignUpPage4> {
                     SizedBox(height: 10,),
                     GestureDetector(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
                       },
                       child: Container(
                         height: 50,
@@ -97,7 +97,7 @@ class _SignUpPage4State extends State<SignUpPage4> {
                     SizedBox(height: 10,),
                     GestureDetector(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
                       },
                       child: Container(
                         height: 50,
@@ -122,7 +122,7 @@ class _SignUpPage4State extends State<SignUpPage4> {
 
                     GestureDetector(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
                       },
                       child: Container(
                         height: 50,

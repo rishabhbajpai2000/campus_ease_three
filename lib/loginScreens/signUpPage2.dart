@@ -1,5 +1,6 @@
 import 'package:campus_ease/constants.dart';
 import 'package:campus_ease/loginScreens/signUpPage2_1.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage2 extends StatefulWidget {
@@ -24,14 +25,14 @@ class _SignUpPage2State extends State<SignUpPage2> {
                 flex: 1,
                 child: Expanded(
                     child: Hero(
-                      tag: "progressSlider",
-                      child: Center(
-                          child: LinearProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                  backgroundColor: Color(0xffC4C4C4),
-                  value: 0.4,
+                  tag: "progressSlider",
+                  child: Center(
+                      child: LinearProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                    backgroundColor: Color(0xffC4C4C4),
+                    value: 0.4,
+                  )),
                 )),
-                    )),
               ),
 
               Expanded(
@@ -61,8 +62,8 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       Container(
                         child: Center(
                           child: TextField(
-                            keyboardType:TextInputType.emailAddress,
-                            onChanged: (value){
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
                               kUserEmail = value;
                             },
                             decoration: InputDecoration(
@@ -89,9 +90,19 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       // next button.
                       GestureDetector(
                         onTap: () {
+                          try {
+                            FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: kUserEmail, password: "password")
+                                .then((value) {
+                                  print("Created new account");
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => SignUpPage2_1()));
+                            });
+                          } on Exception catch (e) {
+                            print(e);
+                          }
                           print(kUserEmail);
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpPage2_1()));
                         },
                         child: Container(
                           height: 50,

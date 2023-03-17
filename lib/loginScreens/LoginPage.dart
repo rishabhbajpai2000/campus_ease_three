@@ -1,5 +1,6 @@
 import 'package:campus_ease/Home.dart';
 import 'package:campus_ease/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,13 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
               // email line
               Padding(
-                padding: const EdgeInsets.only(top: 10,bottom: 10),
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  child: Text("Email Address",
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),),
+                  child: Text(
+                    "Email Address",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
               ),
               // enter email box
@@ -46,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Center(
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
-                    onChanged: (value){
+                    onChanged: (value) {
                       kUserEmail = value;
                     },
                     decoration: InputDecoration(
@@ -59,13 +62,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-             // password line
+              // password line
               Padding(
-                padding: const EdgeInsets.only(top: 10,bottom: 10),
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  child: Text("Password",
-                  style: TextStyle(fontSize: 18),),
+                  child: Text(
+                    "Password",
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
               // enter password box
@@ -73,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Center(
                   child: TextField(
                     obscureText: true,
-                    onChanged: (value){
+                    onChanged: (value) {
                       kUserPassword = value;
                     },
                     decoration: InputDecoration(
@@ -88,15 +93,23 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               Expanded(child: Container()),
-              Image.asset(
-                  "assets/images/loginscreen/LoginPageImage.png"),
+              Image.asset("assets/images/loginscreen/LoginPageImage.png"),
               Expanded(child: Container()),
               GestureDetector(
                 onTap: () {
-                  print(kUserEmail);
-                  print(kUserPassword);
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Home()));
+                  try {
+                    FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: kUserEmail, password: kUserPassword)
+                        .then((value) {
+                      print("Logged In sucessfully");
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Home()));
+                    });
+                  } on Exception catch (e) {
+
+                    print(e);
+                  }
                 },
                 child: Container(
                   height: 50,
@@ -105,12 +118,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                       child: Text(
-                        "Next",
-                        style: TextStyle(fontSize: 18),
-                      )),
+                    "Next",
+                    style: TextStyle(fontSize: 18),
+                  )),
                 ),
               )
-
             ],
           ),
         ),

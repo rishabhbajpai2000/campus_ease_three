@@ -1,0 +1,2 @@
+String kUserName = "";
+String kUserEmail = "";

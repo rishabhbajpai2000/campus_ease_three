@@ -1,3 +1,4 @@
+import 'package:campus_ease/constants.dart';
 import 'package:campus_ease/loginScreens/signUpPage2_1.dart';
 import 'package:flutter/material.dart';
 
@@ -60,6 +61,10 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       Container(
                         child: Center(
                           child: TextField(
+                            keyboardType:TextInputType.emailAddress,
+                            onChanged: (value){
+                              kUserEmail = value;
+                            },
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Color(0xffDDDDE4),
@@ -84,6 +89,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       // next button.
                       GestureDetector(
                         onTap: () {
+                          print(kUserEmail);
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => SignUpPage2_1()));
                         },

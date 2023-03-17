@@ -1,4 +1,5 @@
 import 'package:campus_ease/Home.dart';
+import 'package:campus_ease/constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -44,13 +45,17 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 child: Center(
                   child: TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value){
+                      kUserEmail = value;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Color(0xff92DCEC),
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(10)),
-                        hintText: 'email'),
+                        hintText: 'Email'),
                   ),
                 ),
               ),
@@ -67,6 +72,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 child: Center(
                   child: TextField(
+                    obscureText: true,
+                    onChanged: (value){
+                      kUserPassword = value;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Color(0xff92DCEC),
@@ -84,6 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
               Expanded(child: Container()),
               GestureDetector(
                 onTap: () {
+                  print(kUserEmail);
+                  print(kUserPassword);
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Home()));
                 },

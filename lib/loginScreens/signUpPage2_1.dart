@@ -1,5 +1,8 @@
-import 'package:campus_ease/loginScreens/signUpPage3.dart';
+import 'package:campus_ease/Home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
 
 class SignUpPage2_1 extends StatefulWidget {
   @override
@@ -82,6 +85,9 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                     Container(
                       child: Center(
                         child: TextField(
+                          onChanged: (value){
+                            kUserPassword = value;
+                          },
                           obscureText: true,
                           decoration: InputDecoration(
                               filled: true,
@@ -99,8 +105,19 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                     Expanded(child: Container()),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SignUpPage3()));
+                        try {
+                          FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                              email: kUserEmail, password: kUserPassword)
+                              .then((value) {
+                            print("Logged In sucessfully");
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => Home()));
+                          });
+                        } on Exception catch (e) {
+                          print(e);
+                        }
+
                       },
                       child: Container(
                         height: 50,

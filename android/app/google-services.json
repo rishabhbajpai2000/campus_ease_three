@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "11921379697",
+    "project_id": "campusease-66bbb",
+    "storage_bucket": "campusease-66bbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11921379697:android:d64be6e511b129a2c126d0",
+        "android_client_info": {
+          "package_name": "com.rishabhbajpai190.campus_ease_three"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11921379697-hn0h3oqkdrt0pvqkljalhhdab08qgnlu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiAQWq2dnojflpkFm3Ubcp-V7wd_SO3Xk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11921379697-hn0h3oqkdrt0pvqkljalhhdab08qgnlu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,9 @@
-import 'package:campus_ease/loginScreens/signUpPage3.dart';
+import 'package:campus_ease/Home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constants.dart';
 
 class SignUpPage2_1 extends StatefulWidget {
   @override
@@ -20,14 +24,14 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                 flex: 1,
                 child: Expanded(
                     child: Hero(
-                      tag: "progressSlider",
-                      child: Center(
-                          child: LinearProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                            backgroundColor: Color(0xffC4C4C4),
-                            value: 0.6,
-                          )),
-                    )),
+                  tag: "progressSlider",
+                  child: Center(
+                      child: LinearProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                    backgroundColor: Color(0xffC4C4C4),
+                    value: 0.6,
+                  )),
+                )),
               ),
               Expanded(
                 flex: 6,
@@ -45,13 +49,15 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
 
                     // email line
                     Padding(
-                      padding: const EdgeInsets.only(top: 10,bottom: 10),
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child: Container(
                         alignment: Alignment.centerLeft,
-                        child: Text("Password",
+                        child: Text(
+                          "Password",
                           style: TextStyle(
                             fontSize: 18,
-                          ),),
+                          ),
+                        ),
                       ),
                     ),
                     // enter email box
@@ -71,17 +77,22 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                     ),
                     // password line
                     Padding(
-                      padding: const EdgeInsets.only(top: 10,bottom: 10),
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child: Container(
                         alignment: Alignment.centerLeft,
-                        child: Text("Confirm Password",
-                          style: TextStyle(fontSize: 18),),
+                        child: Text(
+                          "Confirm Password",
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ),
                     ),
                     // enter password box
                     Container(
                       child: Center(
                         child: TextField(
+                          onChanged: (value) {
+                            kUserPassword = value;
+                          },
                           obscureText: true,
                           decoration: InputDecoration(
                               filled: true,
@@ -94,30 +105,44 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                       ),
                     ),
 
-                    Image.asset(
-                        "assets/images/loginscreen/LoginPageImage.png"),
+                    Image.asset("assets/images/loginscreen/LoginPageImage.png"),
                     Expanded(child: Container()),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SignUpPage3()));
+                        try {
+                          FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: kUserEmail, password: kUserPassword)
+                              .then((value) async {
+                            print("Logged In sucessfully");
+                            // makning shared pref to true such that user will be redirected to home screen upon logging again.
+                            var sharedPref =
+                                await SharedPreferences.getInstance();
+                            sharedPref.setBool("LOGGEDIN", true);
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Home()));
+                          });
+                        } on Exception catch (e) {
+                          print(e);
+                        }
                       },
                       child: Container(
                         height: 50,
                         decoration: BoxDecoration(
                             color: Color(0xFF92DCEC),
-                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         child: Center(
                             child: Text(
-                              "Next",
-                              style: TextStyle(fontSize: 18),
-                            )),
+                          "Next",
+                          style: TextStyle(fontSize: 18),
+                        )),
                       ),
                     ),
                   ],
                 ),
               )
-
             ],
           ),
         ),

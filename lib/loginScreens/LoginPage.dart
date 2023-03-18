@@ -2,6 +2,7 @@ import 'package:campus_ease/Home.dart';
 import 'package:campus_ease/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -101,8 +102,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     FirebaseAuth.instance
                         .signInWithEmailAndPassword(
                             email: kUserEmail, password: kUserPassword)
-                        .then((value) {
+                        .then((value) async {
+
                       print("Logged In sucessfully");
+
+                      // makning shared pref to true such that user will be redirected to home screen upon logging again.
+                      var sharedPref = await SharedPreferences.getInstance();
+                      sharedPref.setBool("LOGGEDIN", true);
+
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => Home()));
                     });

@@ -1,3 +1,5 @@
+import 'package:campus_ease/AcademicServices/MinimumAttendance/ExamStartDateInputPage.dart';
+import 'package:campus_ease/AcademicServices/MinimumAttendance/SemStartDateInputPage.dart';
 import 'package:campus_ease/Home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +123,7 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                             sharedPref.setBool("LOGGEDIN", true);
 
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Home()));
+                                builder: (context) => SemStartDateInputPage()));
                           });
                         } on Exception catch (e) {
                           print(e);

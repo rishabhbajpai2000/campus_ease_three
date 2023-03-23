@@ -103,7 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         .signInWithEmailAndPassword(
                             email: kUserEmail, password: kUserPassword)
                         .then((value) async {
-
                       print("Logged In sucessfully");
 
                       // makning shared pref to true such that user will be redirected to home screen upon logging again.
@@ -114,7 +113,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           MaterialPageRoute(builder: (context) => Home()));
                     });
                   } on Exception catch (e) {
-
                     print(e);
                   }
                 },

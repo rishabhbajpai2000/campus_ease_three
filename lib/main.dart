@@ -4,18 +4,23 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'AcademicServices/MinimumAttendance/SemStartDateInputPage.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var isLoggedIn = prefs.getBool('LOGGEDIN');
-  print("yaara seeli seeli " + isLoggedIn.toString());
-  runApp(MaterialApp(home: isLoggedIn == null ? WelcomeScreen() : Home()));
+  print(isLoggedIn.toString());
+  runApp(MaterialApp(home: isLoggedIn == true ? Home() : WelcomeScreen()));
+
+  // runApp(const MaterialApp(home: SemStartDateInputPage()));
 }
 
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +29,8 @@ class MyApp extends StatelessWidget {
       );
   }
 
-  Future<Widget> giveReleventScreen() async {
-    var sharedPref = await SharedPreferences.getInstance();
-    var isLoggedIn = sharedPref.getBool("LOGGEDIN");
-
-    if (isLoggedIn != null){
-      if (isLoggedIn){
-        return Home();
-      }
-      else{
-        return WelcomeScreen();
-      }
-    }
-    else{
-      return WelcomeScreen();
-    }
-  }
 }
+
+
+
+

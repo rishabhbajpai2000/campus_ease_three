@@ -1,6 +1,8 @@
-import 'package:campus_ease/Home.dart';
+
+import 'package:campus_ease/AcademicServices/MinimumAttendance/SemStartDateInputPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
@@ -108,23 +110,39 @@ class _SignUpPage2_1State extends State<SignUpPage2_1> {
                     Image.asset("assets/images/loginscreen/LoginPageImage.png"),
                     Expanded(child: Container()),
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        bool success = false;
                         try {
-                          FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                                  email: kUserEmail, password: kUserPassword)
-                              .then((value) async {
-                            print("Logged In sucessfully");
-                            // makning shared pref to true such that user will be redirected to home screen upon logging again.
-                            var sharedPref =
-                                await SharedPreferences.getInstance();
-                            sharedPref.setBool("LOGGEDIN", true);
+                          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                              email: kUserEmail, password: kUserPassword);
+                          success = true;
+                        } on FirebaseAuthException catch (e) {
 
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Home()));
-                          });
-                        } on Exception catch (e) {
-                          print(e);
+                          Alert(
+                              context: context,
+                              title: "Error!",
+                              desc: "${e.message}",
+                              buttons: [
+                                DialogButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    color: Color(0xFF92DCEC),
+                                    width: 120,
+                                    child: const Text(
+                                      "Go Back",
+                                      style: TextStyle(color: Colors.black, fontSize: 20),
+                                    ))
+                              ]).show();
+                        }
+
+                        if (success == true){
+                          print("Logged In successfully");
+                          // making shared pref to true such that user will be redirected to home screen upon logging again.
+                          var sharedPref =
+                          await SharedPreferences.getInstance();
+                          sharedPref.setBool("LOGGED", true);
+
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SemStartDateInputPage()));
                         }
                       },
                       child: Container(

@@ -3,6 +3,7 @@ import 'package:campus_ease/loginScreens/signUpPage2_1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SignUpPage2 extends StatefulWidget {
   @override
@@ -21,16 +22,43 @@ class _SignUpPage2State extends State<SignUpPage2> {
       if (list.isNotEmpty) {
         // Return true because there is an existing
         // user using the email address
+        Alert(
+            context: context,
+            title: "Error!",
+            desc: "${"The email is already registered. Please use some other account."}",
+            buttons: [
+              DialogButton(
+                  onPressed: () => Navigator.pop(context),
+                  color: Color(0xFF92DCEC),
+                  width: 120,
+                  child: const Text(
+                    "Go Back",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ))
+            ]).show();
         return true;
       } else {
-        // Return false because email adress is not in use
+        // Return false because email address is not in use
         return false;
       }
     } catch (error) {
       // Handle error
       // ...
-      print("chu chu chutiya");
       print(error.toString());
+      Alert(
+          context: context,
+          title: "Error!",
+          desc: "${"There is some other error $error "}",
+          buttons: [
+            DialogButton(
+                onPressed: () => Navigator.pop(context),
+                color: Color(0xFF92DCEC),
+                width: 120,
+                child: const Text(
+                  "Go Back",
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                ))
+          ]).show();
       return true;
     }
   }

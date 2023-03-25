@@ -1,7 +1,12 @@
+
+
 import 'package:campus_ease/loginScreens/LoginPage.dart';
 import 'package:campus_ease/loginScreens/signUpPage1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Home.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -9,6 +14,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _loginScreenOneState extends State<WelcomeScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     final Widget svg = SvgPicture.asset(
@@ -91,5 +98,22 @@ class _loginScreenOneState extends State<WelcomeScreen> {
         ),
       ),
     );
+  }
+
+  giveReleventScreen() async {
+    var sharedPref = await SharedPreferences.getInstance();
+    var isLoggedIn = sharedPref.getBool("LOGGEDIN");
+
+    if (isLoggedIn != null){
+      if (isLoggedIn){
+        return Home();
+      }
+      else{
+        return WelcomeScreen();
+      }
+    }
+    else{
+      return WelcomeScreen();
+    }
   }
 }

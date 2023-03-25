@@ -1,6 +1,9 @@
 import 'package:campus_ease/constants.dart';
 import 'package:campus_ease/loginScreens/signUpPage2_1.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SignUpPage2 extends StatefulWidget {
   @override
@@ -8,6 +11,58 @@ class SignUpPage2 extends StatefulWidget {
 }
 
 class _SignUpPage2State extends State<SignUpPage2> {
+  // Returns true if email address is in use.
+  Future<bool> checkIfEmailInUse(String emailAddress) async {
+    try {
+      // Fetch sign-in methods for the email address
+      final list =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(emailAddress);
+
+      // In case list is not empty
+      if (list.isNotEmpty) {
+        // Return true because there is an existing
+        // user using the email address
+        Alert(
+            context: context,
+            title: "Error!",
+            desc: "${"The email is already registered. Please use some other account."}",
+            buttons: [
+              DialogButton(
+                  onPressed: () => Navigator.pop(context),
+                  color: Color(0xFF92DCEC),
+                  width: 120,
+                  child: const Text(
+                    "Go Back",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ))
+            ]).show();
+        return true;
+      } else {
+        // Return false because email address is not in use
+        return false;
+      }
+    } catch (error) {
+      // Handle error
+      // ...
+      print(error.toString());
+      Alert(
+          context: context,
+          title: "Error!",
+          desc: "${"There is some other error $error "}",
+          buttons: [
+            DialogButton(
+                onPressed: () => Navigator.pop(context),
+                color: Color(0xFF92DCEC),
+                width: 120,
+                child: const Text(
+                  "Go Back",
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                ))
+          ]).show();
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +79,14 @@ class _SignUpPage2State extends State<SignUpPage2> {
                 flex: 1,
                 child: Expanded(
                     child: Hero(
-                      tag: "progressSlider",
-                      child: Center(
-                          child: LinearProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                  backgroundColor: Color(0xffC4C4C4),
-                  value: 0.4,
+                  tag: "progressSlider",
+                  child: Center(
+                      child: LinearProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                    backgroundColor: Color(0xffC4C4C4),
+                    value: 0.4,
+                  )),
                 )),
-                    )),
               ),
 
               Expanded(
@@ -61,8 +116,8 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       Container(
                         child: Center(
                           child: TextField(
-                            keyboardType:TextInputType.emailAddress,
-                            onChanged: (value){
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
                               kUserEmail = value;
                             },
                             decoration: InputDecoration(
@@ -88,10 +143,16 @@ class _SignUpPage2State extends State<SignUpPage2> {
 
                       // next button.
                       GestureDetector(
-                        onTap: () {
-                          print(kUserEmail);
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpPage2_1()));
+                        onTap: () async {
+                          var status = await checkIfEmailInUse(kUserEmail);
+                          if (status == true) {
+                            print("the current email is already in use bruh");
+                          } else if (status == false) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SignUpPage2_1()));
+                          } else {
+                            print(status);
+                          }
                         },
                         child: Container(
                           height: 50,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../AcademicScreen.dart';
 import '../buttons.dart';
+import 'MinimumAttendance/MinimumAttendanceInputPage.dart';
 
 class AcademicScreenBody extends StatelessWidget {
   const AcademicScreenBody({
@@ -44,7 +45,7 @@ class AcademicScreenBody extends StatelessWidget {
               context: context,
               onClickAction: () => {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AcademicScreen()))
+                    builder: (context) => MinimumAttendanceInputPage()))
               }),
 
           selectionButton(

@@ -1,8 +1,11 @@
 import 'package:campus_ease/AcademicServices/MinimumAttendance/AttendanceRequiredDisplayPage.dart';
 import 'package:campus_ease/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:numberpicker/numberpicker.dart';
 
-import '../../PersonalServices/BrokerConnectData.dart';
+import 'AttendanceData.dart';
 
 class MinimumAttendanceInputPage extends StatefulWidget {
   const MinimumAttendanceInputPage({Key? key}) : super(key: key);
@@ -14,6 +17,22 @@ class MinimumAttendanceInputPage extends StatefulWidget {
 
 class _MinimumAttendanceInputPageState
     extends State<MinimumAttendanceInputPage> {
+  var value;
+  int _attendedClasses = 5;
+  int _totalClasses = 8;
+  Future<DateTime> _showDatePicker() async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2020),
+        lastDate: DateTime(2030));
+
+    if (picked != null) {
+      return picked;
+    }
+    return DateTime(2025);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,13 +62,19 @@ class _MinimumAttendanceInputPageState
                         ),
                         Expanded(child: Container()),
                         Text(
-                            "${kSemStartDate.day}/${kSemStartDate.month}/${kSemStartDate.year % 100}",
+                            "${kSemStartDate.day} ${DateFormat("MMMM").format(kSemStartDate).toString().substring(0, 3)} ${kSemStartDate.year % 100}",
                             style: TextStyle(fontSize: 20)),
-
-                        // Todo: add the functionality to edit the date
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: Icon(Icons.edit),
+                        GestureDetector(
+                          onTap: () async {
+                            DateTime pickedDate = await _showDatePicker();
+                            setState(() {
+                              kSemStartDate = pickedDate;
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                            child: Icon(Icons.edit),
+                          ),
                         )
                       ],
                     ),
@@ -64,12 +89,19 @@ class _MinimumAttendanceInputPageState
                         ),
                         Expanded(child: Container()),
                         Text(
-                            "${kExamStartDate.day}/${kExamStartDate.month}/${kExamStartDate.year % 100}",
+                            "${kExamStartDate.day} ${DateFormat("MMMM").format(kExamStartDate).toString().substring(0, 3)} ${kExamStartDate.year % 100}",
                             style: TextStyle(fontSize: 20)),
-                        // Todo: add the functionality to edit the date
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: Icon(Icons.edit),
+                        GestureDetector(
+                          onTap: () async {
+                            DateTime pickedDate = await _showDatePicker();
+                            setState(() {
+                              kExamStartDate = pickedDate;
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                            child: Icon(Icons.edit),
+                          ),
                         )
                       ],
                     ),
@@ -85,7 +117,7 @@ class _MinimumAttendanceInputPageState
                       ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: brokersData.length,
+                          itemCount: attendanceData.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -99,9 +131,11 @@ class _MinimumAttendanceInputPageState
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(children: [
-                                    Text("Date/Date/Date $index"),
+                                    Text(
+                                        "${attendanceData[index].getDateFormatted()}"),
                                     Expanded(child: Container()),
-                                    Text("data")
+                                    Text(
+                                        "${attendanceData[index].attendedClasses} | ${attendanceData[index].totalClasses}")
                                   ]),
                                 ),
                               ),
@@ -112,33 +146,58 @@ class _MinimumAttendanceInputPageState
                 ),
               ),
 
-
-
-              Container(
-                width: double.infinity,
-                height: 150,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          color: Colors.black,
-                          child: Icon(
-                            Icons.add,
-                            size: 30,
-                            weight: 20,
-                            color: Colors.white,
-                          )),
-                    ),
-                    Text(
-                      "Add Class",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xFF92DCEC),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Classes attended on ${getCurrentDate()}",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          NumberPicker(
+                            value: _attendedClasses,
+                            minValue: 0,
+                            maxValue: 10,
+                            onChanged: (value) {
+                              setState(() => _attendedClasses = value);
+                              print("Attended classes  $_attendedClasses");
+                            },
+                          ),
+                          Text("|"),
+                          NumberPicker(
+                            value: _totalClasses,
+                            minValue: 0,
+                            maxValue: 10,
+                            onChanged: (value) =>
+                                setState(() => _totalClasses = value),
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  attendanceData.add(Attendance(
+                                      date: DateTime.now(),
+                                      totalClasses: _totalClasses,
+                                      attendedClasses: _attendedClasses));
+                                });
+                              },
+                              child: Text("Submit"))
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
                 child: Text(
@@ -147,9 +206,9 @@ class _MinimumAttendanceInputPageState
                 ),
               ),
               GestureDetector(
-                onTap: (){
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => AttendanceRequiredDisplayPage()));
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AttendanceRequiredDisplayPage()));
                 },
                 child: Container(
                   height: 50,
@@ -169,5 +228,11 @@ class _MinimumAttendanceInputPageState
         ),
       ),
     );
+  }
+
+  getCurrentDate() {
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(now.year, now.month, now.day);
+    return "${date.day} ${DateFormat("MMMM").format(date).toString().substring(0, 3)} ${date.year % 100}";
   }
 }

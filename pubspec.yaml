@@ -23,14 +23,22 @@ dependencies:
   shared_preferences: ^2.0.18
   intl: ^0.17.0
   rflutter_alert: ^2.0.4
+#  This is for taking input of the number of classses on minimum attendance page.
+  numberpicker: ^2.0.1
 
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: ^0.12.0
   flutter_lints: ^2.0.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/AppLogo.png"
+  min_sdk_android: 21 #
 
 flutter:
 

@@ -11,7 +11,7 @@ class Attendance {
       required this.attendedClasses});
 
   String getDateFormatted(){
-    return "${this.date.day} ${DateFormat("MMMM").format(this.date).toString().substring(0, 3)} ${this.date.year % 100}";
+    return "${date.day} ${DateFormat("MMMM").format(date).toString().substring(0, 3)} ${date.year % 100}";
   }
 }
 

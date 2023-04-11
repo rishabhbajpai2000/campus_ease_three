@@ -44,38 +44,41 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
             ),
 
             // button 1 personal
-            selectionButton(heading1: "Personal",
+            selectionButton(
+                heading1: "Personal",
                 heading2: "I need help for my personal needs.",
                 shade: Color(0xffD3E9FF),
                 context: context,
                 onClickAction: () => {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PersonalScreen()))
-                }),
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => PersonalScreen()))
+                    }),
 
-            selectionButton(heading1: "Academics",
+            selectionButton(
+                heading1: "Academics",
                 heading2: "I want help to excel in my academics ",
                 shade: Color(0xffD3E9FF),
                 context: context,
                 onClickAction: () => {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AcademicScreen()))
-                }),
-            selectionButton(heading1: "Career",
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AcademicScreen()))
+                    }),
+            selectionButton(
+                heading1: "Career",
                 heading2: "I want help to excel in my career ",
                 shade: Color(0xffD3E9FF),
                 context: context,
                 onClickAction: () => {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AcademicScreen()))
-                }),
-            Expanded(child: Center(child: Image.asset(
-                "assets/images/homeScreen/homeScreenImage.png"))),
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AcademicScreen()))
+                    }),
+            Expanded(
+                child: Center(
+                    child: Image.asset(
+                        "assets/images/homeScreen/homeScreenImage.png"))),
           ],
         ),
       ),
     );
   }
 }
-
-
